@@ -13,9 +13,7 @@ from langchain.chat_models import ChatOpenAI
 
 load_dotenv()
 
-KEY = os.getenv("OPENAI_API_KEY")
-
-llm = ChatOpenAI(KEY, model_name="gpt-3.5-turbo", temperature=0.5)
+llm=ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"),model_name="gpt-3.5-turbo", temperature=0.3)
 
 TEMPLATE = """
 Text: {text}
