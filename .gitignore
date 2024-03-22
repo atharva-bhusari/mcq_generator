@@ -2,5 +2,5 @@ env
 .env
 logs
 test.py
-experiment.ipynb
+experiment
 data.txt
