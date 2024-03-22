@@ -1,2 +1,6 @@
 env
 .env
+logs
+test.py
+experiment.ipynb
+data.txt
