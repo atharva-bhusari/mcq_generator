@@ -58,6 +58,7 @@ with st.form("user_inputs"):
                             df = pd.DataFrame(table_data)
                             df.index = df.index + 1
                             st.table(df)
+                            # csv = df.to_csv(index=False).encode('utf-8')
 
                             st.text_area(label="Review", value=response['review'])
                         else:
