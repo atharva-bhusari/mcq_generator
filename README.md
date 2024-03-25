@@ -8,25 +8,19 @@ This MCQ (Multiple Choice Question) generator is a tool developed using LangChai
 - Customizable question complexity level (tone)
 - Support for PDF and text file inputs
 - Ability to specify the number of MCQs to be generated
-- Option to download the generated MCQs as a CSV file
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/mcq-generator.git`
+1. Clone the repository: `git clone https://github.com/atharva-bhusari/mcq_generator.git`
 2. Install the required dependencies: `pip install -r requirements.txt`
-3. Set up your LangChain and OpenAI API credentials in the configuration file (`config.py` or `.env`).
+3. Set up your LangChain and OpenAI API credentials in the configuration file (`.env`).
 
 ## Usage
 
 1. Provide the input PDF or text file for which you want to generate MCQs.
 2. Specify the number of MCQs to be generated and the desired complexity level (tone).
-3. Run the generator script: `streamlit run generate.py`
+3. Run the generator script: `streamlit run streamlitapp.py`
 4. The generated MCQs will be displayed on the Streamlit web interface.
-5. Optionally, you can download the generated MCQs as a CSV file.
-
-## Configuration
-
-In the `config.py` (or `.env`) file, you can customize various settings such as API credentials, default number of MCQs, and default complexity level.
 
 ## Contributing
 
@@ -40,3 +34,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 - [LangChain](https://langchain.com)
 - [OpenAI](https://openai.com)
+- [Ineuron Genrative AI Community Sessions](https://ineuron.ai/course/generative-ai-community-edition)

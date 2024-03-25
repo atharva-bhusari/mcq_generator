@@ -4,3 +4,4 @@ logs
 test.py
 experiment
 data.txt
+*.pem
