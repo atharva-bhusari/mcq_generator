@@ -1,19 +1,23 @@
-import os
 import json
 import traceback
+from io import StringIO
 import pandas as pd
-from dotenv import load_dotenv
 from src.mcqgenerator.utils import read_file, get_table_data
 import streamlit as st
 from langchain_community.callbacks import get_openai_callback
 from src.mcqgenerator.MCQGenrator import generate_and_evaluate_quiz
-from src.mcqgenerator.logger import logging
 
 with open('response.json', 'r') as f:
     RESPONSE_JSON = json.load(f)
 
 
 st.title("MCQ Generator using LangChain")
+
+if 'mcqs_ready' not in st.session_state:
+    st.session_state['mcqs_ready'] = False
+if 'mcqs_data' not in st.session_state:
+    st.session_state['mcqs_data'] = []
+
 
 with st.form("user_inputs"):
     upload_file = st.file_uploader("Upload a file pdf or text", type=["pdf", "txt"])
@@ -52,13 +56,14 @@ with st.form("user_inputs"):
                 print(f"Total Cost:{cb.total_cost}")
                 if isinstance(response, dict):
                     quiz = response.get("quiz", None)
+                    st.session_state['mcqs_ready'] = True
                     if quiz is not None:
                         table_data = get_table_data(quiz)
+                        st.session_state['mcqs_data'] = table_data
                         if table_data is not None:
                             df = pd.DataFrame(table_data)
                             df.index = df.index + 1
                             st.table(df)
-                            # csv = df.to_csv(index=False).encode('utf-8')
 
                             st.text_area(label="Review", value=response['review'])
                         else:
@@ -66,3 +71,19 @@ with st.form("user_inputs"):
 
                 else:
                     st.write(response)
+
+
+if st.session_state.mcqs_ready:
+    # Convert stored MCQ data to CSV
+    df = pd.DataFrame(st.session_state.mcqs_data)
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer, index=False)
+    csv_string = csv_buffer.getvalue()
+    
+    # Display download button
+    st.download_button(
+        label="Download MCQs as CSV",
+        data=csv_string,
+        file_name="mcqs.csv",
+        mime='text/csv',
+    )
